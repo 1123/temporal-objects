@@ -16,27 +16,27 @@ import org.springframework.web.bind.annotation.{PathVariable, RequestMapping, Re
 class HotelController @Autowired()(private val hotelRepository: HotelRepository) {
 
   @RequestMapping(method = Array(RequestMethod.GET))
-  def list(model: Model) = {
+  def list(model: Model) : String = {
     val hotels = hotelRepository.findAll()
     model.addAttribute("hotels", hotels)
     "hotels/list"
   }
 
   @RequestMapping(Array("/edit/{id}"))
-  def edit(@PathVariable("id") id: Long, model: Model) = {
+  def edit(@PathVariable("id") id: Long, model: Model) : String = {
     model.addAttribute("hotel", hotelRepository.findOne(id))
     "hotels/edit"
   }
 
   @RequestMapping(method = Array(RequestMethod.GET), params = Array("form"))
-  def createForm(model: Model) = {
+  def createForm(model: Model) : String = {
     model.addAttribute("hotel", new Hotel())
     "hotels/create"
   }
 
   @RequestMapping(method = Array(RequestMethod.POST))
-  def create(@Valid hotel: Hotel, bindingResult: BindingResult) = {
-    if (bindingResult.hasErrors()) {
+  def create(@Valid hotel: Hotel, bindingResult: BindingResult) : String = {
+    if (bindingResult.hasErrors) {
       "hotels/create"
     } else {
       hotelRepository.save(hotel)
@@ -45,8 +45,8 @@ class HotelController @Autowired()(private val hotelRepository: HotelRepository)
   }
 
   @RequestMapping(value = Array("/update"), method = Array(RequestMethod.POST))
-  def update(@Valid hotel: Hotel, bindingResult: BindingResult) = {
-    if (bindingResult.hasErrors()) {
+  def update(@Valid hotel: Hotel, bindingResult: BindingResult) : String = {
+    if (bindingResult.hasErrors) {
       "hotels/edit"
     } else {
       hotelRepository.save(hotel)
@@ -55,7 +55,7 @@ class HotelController @Autowired()(private val hotelRepository: HotelRepository)
   }
 
   @RequestMapping(value = Array("/delete/{id}"))
-  def delete(@PathVariable("id") id: Long) = {
+  def delete(@PathVariable("id") id: Long) : String = {
     hotelRepository.delete(id)
     "redirect:/hotels"
   }

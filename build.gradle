@@ -15,6 +15,7 @@ apply plugin: 'scala'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'spring-boot'
+apply plugin: 'distribution'
 
 ext {
     sourceCompatibility = 1.8

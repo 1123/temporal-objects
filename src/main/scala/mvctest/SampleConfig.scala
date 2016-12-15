@@ -1,10 +1,17 @@
 package mvctest
 
-import org.springframework.context.annotation.Configuration
+import com.mongodb.MongoClient
+import org.springframework.context.annotation.{Bean, ComponentScan, Configuration}
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration
-import org.springframework.context.annotation.ComponentScan
 
 @Configuration
 @EnableAutoConfiguration
 @ComponentScan
-class SampleConfig
+class SampleConfig {
+
+  @Override
+  @Bean
+  def mongo(): MongoClient = {
+    new MongoClient()
+  }
+}

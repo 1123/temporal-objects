@@ -1,8 +1,5 @@
 package mvctest.service
 
-import java.util.UUID
-import javax.persistence.{Entity, Id}
-
 import mvctest.domain.Organization
 import org.springframework.data.mongodb.repository.MongoRepository
 

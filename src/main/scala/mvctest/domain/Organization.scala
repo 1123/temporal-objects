@@ -1,15 +1,31 @@
 package mvctest.domain
 
-import java.util.UUID
+import java.util.{Date, UUID}
 import javax.persistence.{Entity, Id}
+
+import scala.beans.BeanProperty
 
 /**
   * Created by linseb on 15/12/16.
   */
 @Entity
-class Organization {
+class Organization() extends Temporal {
 
   @Id
-  val uuid : UUID = UUID.randomUUID()
+  @BeanProperty
+  var uuid : UUID = UUID.randomUUID()
+
+  @BeanProperty
+  var name: String = "sample"
+
+}
+
+trait Temporal {
+
+  @BeanProperty
+  var from: Date = new Date()
+
+  @BeanProperty
+  var to: Date = new Date()
 
 }

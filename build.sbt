@@ -20,6 +20,9 @@ libraryDependencies ++= Seq(
   "javax.servlet" % "javax.servlet-api" % "3.0.1" % "provided"
 )
 
+libraryDependencies += "org.scalactic" %% "scalactic" % "3.0.0"
+libraryDependencies += "org.scalatest" %% "scalatest" % "3.0.0" % "test"
+
 
 libraryDependencies ++= Seq(
   "org.apache.tomcat.embed" % "tomcat-embed-core"         % "8.0.30" % "container",

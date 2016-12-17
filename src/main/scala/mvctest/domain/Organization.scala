@@ -1,14 +1,15 @@
 package mvctest.domain
 
+import java.util
 import java.util.{Date, UUID}
-import javax.persistence.{Entity, Id}
+
+import org.springframework.data.annotation.Id
 
 import scala.beans.BeanProperty
 
 /**
   * Created by linseb on 15/12/16.
   */
-@Entity
 class Organization() extends Temporal {
 
   @Id
@@ -16,16 +17,14 @@ class Organization() extends Temporal {
   var uuid : UUID = UUID.randomUUID()
 
   @BeanProperty
-  var name: String = "sample"
+  var names: java.util.List[TemporalString] = util.Arrays.asList(new TemporalString)
+
+  @BeanProperty
+  var spaces: java.util.List[Space] = util.Arrays.asList(new Space())
 
 }
 
-trait Temporal {
 
-  @BeanProperty
-  var from: Date = new Date()
 
-  @BeanProperty
-  var to: Date = new Date()
 
-}
+

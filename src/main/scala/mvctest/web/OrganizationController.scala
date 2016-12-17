@@ -25,7 +25,6 @@ class OrganizationController @Autowired()(private val organizationRepository: Or
   def post() : Unit = {
     logger.info("New organization posted.")
     val org = new Organization()
-    org.setName("foo")
     organizationRepository.save(org)
   }
 

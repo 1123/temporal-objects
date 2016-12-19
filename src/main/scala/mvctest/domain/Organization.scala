@@ -1,8 +1,8 @@
 package mvctest.domain
 
-import java.util
-import java.util.{Date, UUID}
+import java.util.UUID
 
+import mvctest.domain.temporal.{Just, Temp, Temporal}
 import org.springframework.data.annotation.Id
 
 import scala.beans.BeanProperty
@@ -10,19 +10,20 @@ import scala.beans.BeanProperty
 /**
   * Created by linseb on 15/12/16.
   */
-class Organization() extends Temporal {
+class Organization() {
 
   @Id
   @BeanProperty
   var uuid : UUID = UUID.randomUUID()
 
   @BeanProperty
-  var names: java.util.List[TemporalString] = util.Arrays.asList(new TemporalString)
+  var spaces: Temporal[Space] = Temp(List())
 
   @BeanProperty
-  var spaces: java.util.List[Space] = util.Arrays.asList(new Space())
-
+  var name: Temporal[String] = Just("")
 }
+
+
 
 
 

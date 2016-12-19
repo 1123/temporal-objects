@@ -2,17 +2,20 @@ package mvctest.domain
 
 import java.util.UUID
 
+import mvctest.domain.temporal.Temporal
+
 import scala.beans.BeanProperty
 
 /**
   * Created by linseb on 17/12/16.
   */
-class Space extends Temporal {
+class Space (var name: Temporal[String]) {
 
   @BeanProperty
   var uuid: UUID = UUID.randomUUID()
 
-  @BeanProperty
-  var names: java.util.List[TemporalString] = java.util.Arrays.asList(new TemporalString)
+  def setName(name: Temporal[String]): Unit = {
+    this.name = name
+  }
 
 }

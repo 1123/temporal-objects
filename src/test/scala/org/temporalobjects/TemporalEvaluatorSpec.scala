@@ -1,7 +1,6 @@
 package org.temporalobjects
 
 import java.time.{LocalDateTime, ZoneId}
-import java.util
 import java.util.Date
 
 import org.scalatest.{FlatSpec, Matchers}
@@ -22,12 +21,12 @@ class TemporalEvaluatorSpec extends FlatSpec with Matchers {
     new {
       val org = new Organization()
       org.name = Just("my_org")
-      org.spaces = util.Arrays.asList(
-        Temp(util.Arrays.asList(new TimeSlize[Space](new Space(Just("my_space")), date3, date4)))
+      org.spaces = List(
+        Temp(List(new TimeSlize[Space](new Space(Just("my_space")), date3, date4)))
       )
       val evaluator = new TemporalEvaluator
       val temporalOrg: Temporal[Organization] = Temp(
-        util.Arrays.asList(
+        List(
           new TimeSlize(
             org,
             date1,
@@ -50,7 +49,7 @@ class TemporalEvaluatorSpec extends FlatSpec with Matchers {
       case Just(org) =>
         org.name should equal(Just("my_org"))
         org.spaces should have length 1
-        org.spaces.get(0) match {
+        org.spaces.head match {
           case Just(space) => space.name should be (Just("my_space"))
           case _ => fail()
         }

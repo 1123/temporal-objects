@@ -14,6 +14,7 @@ class TimeSlize[T](var t: T, var from: Date, var to: Date) {
   }
 
   def setFrom(from: Date): Unit = { this.from = from }
+
   def setTo(from: Date): Unit = { this.to = to }
 
 }

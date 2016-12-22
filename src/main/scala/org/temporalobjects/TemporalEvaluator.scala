@@ -16,7 +16,7 @@ class TemporalEvaluator {
       case Just(o) => Just(o)
       case Absent() => Absent()
       case Temp(o) =>
-        val active = o.toList.filter(
+        val active = o.filter(
           timeSlize => timeSlize.from.compareTo(date) <= 0 && timeSlize.to.after(date)
         )
         if (active.isEmpty) Absent()
@@ -36,14 +36,14 @@ class TemporalEvaluator {
       }
       if (field.getType.getSimpleName.equals("List")) {
         field.setAccessible(true)
-        val evaluatedElements = field.get(o).asInstanceOf[java.util.List[Temporal[Any]]].map({
+        val evaluatedElements = field.get(o).asInstanceOf[List[Temporal[Any]]].map({
           case element@Temp(_) => eval(element.asInstanceOf[Temporal[Any]], date)
           case element => element
         }).filter(elem => elem match {
           case Absent() => false
           case _ => true
         })
-        field.set(o, new util.ArrayList(evaluatedElements))
+        field.set(o, evaluatedElements)
       }
     })
     o

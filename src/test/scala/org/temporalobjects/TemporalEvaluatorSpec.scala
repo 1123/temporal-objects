@@ -22,10 +22,10 @@ class TemporalEvaluatorSpec extends FlatSpec with Matchers {
       val evaluator = new TemporalEvaluator
       val temporalCompany: Temporal[Company] = Temp(
         List(
-          new TimeSlize(
+          new Version(
             new Company(
               List(
-                Temp(List(new TimeSlize[Employee](new Employee(Just("John"), Just("Doe")), date3, date4)))
+                Temp(List(new Version[Employee](new Employee(Just("John"), Just("Doe")), date3, date4)))
               ),
               Just("ACME")
             ),

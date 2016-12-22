@@ -19,16 +19,16 @@ class TemporalEvaluatorSpec extends FlatSpec with Matchers {
 
   def fixture =
     new {
-      val org = new Organization()
-      org.name = Just("my_org")
-      org.spaces = List(
-        Temp(List(new TimeSlize[Space](new Space(Just("my_space")), date3, date4)))
-      )
       val evaluator = new TemporalEvaluator
-      val temporalOrg: Temporal[Organization] = Temp(
+      val temporalCompany: Temporal[Company] = Temp(
         List(
           new TimeSlize(
-            org,
+            new Company(
+              List(
+                Temp(List(new TimeSlize[Employee](new Employee(Just("John"), Just("Doe")), date3, date4)))
+              ),
+              Just("ACME")
+            ),
             date1,
             date4
           )
@@ -37,26 +37,28 @@ class TemporalEvaluatorSpec extends FlatSpec with Matchers {
     }
 
   "the temporal evaluator" should "be able to determine the state of an object over time" in {
-    val org2 = fixture.evaluator.eval(fixture.temporalOrg, date2)
+    val org2 = fixture.evaluator.eval(fixture.temporalCompany, date2)
     org2 match {
       case Just(x) =>
-        x.name should equal (Just("my_org"))
-        x.spaces should be (empty)
+        x.name should equal (Just("ACME"))
+        x.employees should be (empty)
       case _ => fail()
     }
-    val org3 = fixture.evaluator.eval(fixture.temporalOrg, date3)
+    val org3 = fixture.evaluator.eval(fixture.temporalCompany, date3)
     org3 match {
       case Just(org) =>
-        org.name should equal(Just("my_org"))
-        org.spaces should have length 1
-        org.spaces.head match {
-          case Just(space) => space.name should be (Just("my_space"))
+        org.name should equal(Just("ACME"))
+        org.employees should have length 1
+        org.employees.head match {
+          case Just(employee) =>
+            employee.firstName should be (Just("John"))
+            employee.lastName should be (Just("Doe"))
           case _ => fail()
         }
       case _ => fail()
     }
-    fixture.evaluator.eval(fixture.temporalOrg, date5) should equal (Absent())
-    fixture.evaluator.eval(fixture.temporalOrg, date0) should equal (Absent())
+    fixture.evaluator.eval(fixture.temporalCompany, date5) should equal (Absent())
+    fixture.evaluator.eval(fixture.temporalCompany, date0) should equal (Absent())
   }
 
   private def date(year: Int, month: Int, day: Int, hour: Int, minute: Int) : Date = {

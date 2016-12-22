@@ -1,9 +1,6 @@
 package org.temporalobjects
 
-import java.util
 import java.util.Date
-
-import scala.collection.JavaConversions._
 
 /**
   *

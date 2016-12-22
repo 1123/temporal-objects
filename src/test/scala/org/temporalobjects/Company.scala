@@ -1,12 +1,13 @@
 package org.temporalobjects
 
+import scala.collection.JavaConversions._
+
 /**
   * Created by linseb on 15/12/16.
   */
-class Company(e: List[Temporal[Employee]] = List(), n: Temporal[String]) {
+case class Company(var employees: List[Temporal[Employee]], name: Temporal[String]) {
 
-  var employees: List[Temporal[Employee]] = e
-  var name: Temporal[String] = n
+  def this(e: java.util.List[Temporal[Employee]], n: Temporal[String]) = this(e.toList, n)
 
 }
 

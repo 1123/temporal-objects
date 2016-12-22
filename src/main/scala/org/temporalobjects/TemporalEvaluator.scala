@@ -1,10 +1,9 @@
-package mvctest.service
+package org.temporalobjects
 
 import java.util
 import java.util.Date
 
 import scala.collection.JavaConversions._
-import mvctest.domain.temporal._
 
 /**
   *

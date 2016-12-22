@@ -1,6 +1,4 @@
-package mvctest.domain
-
-import mvctest.domain.temporal.Temporal
+package org.temporalobjects
 
 /**
   * Created by linseb on 17/12/16.

@@ -1,8 +1,6 @@
-package mvctest.domain
+package org.temporalobjects
 
 import java.util
-
-import mvctest.domain.temporal.{Just, Temp, Temporal}
 
 /**
   * Created by linseb on 15/12/16.

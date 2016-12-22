@@ -1,4 +1,4 @@
-package mvctest.domain.temporal
+package org.temporalobjects
 
 /**
   * Created by linseb on 19/12/16.

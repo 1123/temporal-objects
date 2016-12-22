@@ -1,4 +1,4 @@
-package mvctest.domain.temporal
+package org.temporalobjects
 
 import java.util.Date
 

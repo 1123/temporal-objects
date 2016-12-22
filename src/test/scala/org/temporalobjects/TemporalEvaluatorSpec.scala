@@ -1,11 +1,9 @@
-package mvctest.domain
+package org.temporalobjects
 
 import java.time.{LocalDateTime, ZoneId}
 import java.util
 import java.util.Date
 
-import mvctest.domain.temporal._
-import mvctest.service.TemporalEvaluator
 import org.scalatest.{FlatSpec, Matchers}
 
 /**

@@ -1,0 +1,25 @@
+org {
+  id : 123,
+  from: 1,
+  to : 3,
+  name: {
+    temp : [
+      { value : "foo", from: 1, to: 2 },
+      { value : "bar", from : 2, to: 3 }
+    ]
+  },
+  spaces: [
+    space: {
+      id: 456,
+      from: 2,
+      to: 3,
+      name : {
+        temp : [
+          { value: "space1", from: 2, to: 3 }
+        ]
+      }
+    }
+  ]
+}
+
+

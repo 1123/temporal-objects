@@ -12,6 +12,7 @@ libraryDependencies ++= Seq(
   "com.typesafe.scala-logging" %% "scala-logging" % "3.5.0",
   "com.typesafe.scala-logging" %% "scala-logging-slf4j" % "2.1.2",
   "org.springframework.boot" % "spring-boot-starter-web" % "1.3.2.RELEASE",
+  "org.springframework.boot" % "spring-boot-starter-test" % "1.3.2.RELEASE",
   "org.springframework.boot" % "spring-boot-starter-data-mongodb" % "1.3.2.RELEASE",
   "org.webjars" % "bootstrap" % "3.1.1",
   "org.thymeleaf" % "thymeleaf-spring4" % "2.1.2.RELEASE",

@@ -9,7 +9,6 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration
 @ComponentScan
 class SampleConfig {
 
-  @Override
   @Bean
   def mongo(): MongoClient = {
     new MongoClient()

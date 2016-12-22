@@ -15,7 +15,7 @@ class OrganizationController @Autowired()(private val organizationRepository: Or
   extends LazyLogging {
 
   @RequestMapping(Array("/"))
-  def get(): java.util.List[Organization] = {
+  def get(): java.util.List[Temporal[Organization]] = {
     organizationRepository.findAll()
   }
 
@@ -29,8 +29,8 @@ class OrganizationController @Autowired()(private val organizationRepository: Or
   def post() : Unit = {
     logger.info("New organization posted.")
     val org = new Organization()
-    org.spaces = new Temp[Space](
-        List(
+    org.spaces = util.Arrays.asList(new Temp[Space](
+        util.Arrays.asList(
           new TimeSlize[Space](
             new Space(Just("my_space")),
             new Date(),
@@ -38,8 +38,14 @@ class OrganizationController @Autowired()(private val organizationRepository: Or
           )
         )
       )
+    )
     org.name = Just("my_org")
-    organizationRepository.save(org)
+    val toStore : Temporal[Organization] = Temp(
+      util.Arrays.asList(
+        new TimeSlize[Organization](org, new Date(), new Date())
+      )
+    )
+    organizationRepository.save(toStore)
   }
 
 }

@@ -17,48 +17,25 @@ class TemporalEvaluatorSpec extends FlatSpec with Matchers {
   private val date4 = date(2016, 12, 21, 17, 12)
   private val date5 = date(2016, 12, 22, 17, 12)
 
-  def fixture =
-    new {
-      val evaluator = new TemporalEvaluator
-      val temporalCompany: Temporal[Company] = Temp(
-        List(
-          new Version(
-            new Company(
-              List(
-                Temp(List(new Version[Employee](new Employee(Just("John"), Just("Doe")), date3, date4)))
-              ),
-              Just("ACME")
-            ),
-            date1,
-            date4
-          )
-        )
-      )
-    }
+  "an object with a temporal single relationship" should "be able to have different versions of this relationship over time" in {
+    val company = Company(
+      TempOneToMany(List()), // company without employees
+      TempOneToOne(List(
+        TempValue("abc company", date0, date1), // company was named "abc company" between date0 and date1
+        TempValue("def company", date1, date2) // company was named "def company" between date1 and date2
+      )))
+  }
 
-  "the temporal evaluator" should "be able to determine the state of an object over time" in {
-    val org2 = fixture.evaluator.eval(fixture.temporalCompany, date2)
-    org2 match {
-      case Just(x) =>
-        x.name should equal (Just("ACME"))
-        x.employees should be (empty)
-      case _ => fail()
-    }
-    val org3 = fixture.evaluator.eval(fixture.temporalCompany, date3)
-    org3 match {
-      case Just(org) =>
-        org.name should equal(Just("ACME"))
-        org.employees should have length 1
-        org.employees.head match {
-          case Just(employee) =>
-            employee.firstName should be (Just("John"))
-            employee.lastName should be (Just("Doe"))
-          case _ => fail()
-        }
-      case _ => fail()
-    }
-    fixture.evaluator.eval(fixture.temporalCompany, date5) should equal (Absent())
-    fixture.evaluator.eval(fixture.temporalCompany, date0) should equal (Absent())
+  "an object with a temporal multi relationship" should "be able to have multiple relations at the same time" in {
+    val company = Company(
+      TempOneToMany(
+        List(
+          TempValue(Employee("foo1", "bar1"), date1, date3),
+          TempValue(Employee("foo2", "bar2"), date2, date4)
+        )
+      ), // company has two employees over time. Their employment periods overlap.
+      TempOneToOne(List()) // company without name at any given point in time
+    )
   }
 
   private def date(year: Int, month: Int, day: Int, hour: Int, minute: Int) : Date = {
